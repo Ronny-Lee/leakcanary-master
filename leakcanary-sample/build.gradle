@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+  debugImplementation project(':leakcanary-android')
+  releaseImplementation project(':leakcanary-android-no-op')
+
+  testImplementation "junit:junit:4.12"
+  testImplementation "org.robolectric:robolectric:3.5.1"
+//  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+}
+dependencies {
+  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+}
+
+android {
+  compileSdkVersion versions.compileSdk
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+
+  defaultConfig {
+    applicationId "com.example.leakcanary"
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+
+    versionCode 1
+    versionName "1.0"
+  }
+
+  buildTypes {
+    debug
+  }
+
+  dexOptions {
+    dexInProcess false
+  }
+
+  lintOptions {
+    disable 'GoogleAppIndexingWarning'
+  }
+
+  testOptions {
+    unitTests {
+      includeAndroidResources = true
+    }
+  }
+}
